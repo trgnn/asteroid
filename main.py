@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -32,8 +33,12 @@ def main():
         dt = clock.tick(60)/1000
 
         # 3) Update (use dt)
-        # updatable.update(dt)
         updatable.update(dt)
+        for obj in asteroids:
+            if obj.collision(player) == True:
+                print("Game over!")
+                sys.exit()
+
 
         # 4) Render
         screen.fill("black")
