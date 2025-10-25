@@ -40,7 +40,7 @@ def main():
         for obj in asteroids:
             for bullet in shots:
                 if bullet.collision(obj) == True:
-                    obj.kill()
+                    obj.split()
                     bullet.kill()
             if obj.collision(player) == True:
                 print("Game over!")
