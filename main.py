@@ -9,6 +9,7 @@ from asteroidfield import AsteroidField
 # to run the game, use $ uv run main.py
 def main():
     pygame.init()
+    font = pygame.font.Font(None, 16)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
@@ -42,6 +43,10 @@ def main():
                 if bullet.collision(obj) == True:
                     obj.split()
                     bullet.kill()
+                    #scoring
+                    player.score += 1
+                    print(player.score)
+
             if obj.collision(player) == True:
                 print("Game over!")
                 sys.exit()
@@ -51,6 +56,9 @@ def main():
         screen.fill("black")
         for obj in drawable:
             obj.draw(screen)
+        #scoring
+        score = font.render(f"score: {player.score}", True, (255, 255, 255))
+        screen.blit(score, (20, 20))
         pygame.display.flip()
 
 
