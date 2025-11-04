@@ -9,6 +9,9 @@ class Player(CircleShape):
         self.rotation = 0
         self.timer = 0
         self.score = 0
+        #take_damage variables
+        self.health = PLAYER_BASE_HEALTH
+        self.invisibility_timer = 0
     
     def draw(self, screen):
         pygame.draw.polygon(screen, "white", self.triangle(), 2)
@@ -35,10 +38,20 @@ class Player(CircleShape):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         bullet.velocity += forward * PLAYER_SHOOT_SPEED
 
+    def take_damage(self):
+        if self.invisibility_timer <= 0:
+            self.invisibility_timer = 2
+            self.health -= 1
+            #will be returning True or False
+            return self.health <= 0
+        return False
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.timer -= dt
-
+        if self.invisibility_timer > 0:
+            self.invisibility_timer = max(0,self.invisibility_timer - dt)
+        
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_d]:

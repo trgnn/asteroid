@@ -9,7 +9,7 @@ from asteroidfield import AsteroidField
 # to run the game, use $ uv run main.py
 def main():
     pygame.init()
-    font = pygame.font.Font(None, 16)
+    font = pygame.font.Font(None, 24)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
@@ -47,17 +47,22 @@ def main():
                     player.score += 1
 
             if obj.collision(player) == True:
-                print("Game over!")
-                sys.exit()
-
+                health_statut = player.take_damage()
+                if health_statut == True:
+                    print("Game over!")
+                    sys.exit()
 
         # 4) Render
         screen.fill("black")
         for obj in drawable:
             obj.draw(screen)
         #scoring
-        score = font.render(f"score: {player.score}", True, (255, 255, 255))
-        screen.blit(score, (20, 20))
+        ui_score = font.render(f"SCORE: {player.score}", True, (255, 255, 255))
+        ui_health = font.render(f"HEALTH: {player.health}", True, (255, 255, 255))
+        ui_invisibility = font.render(f"INVISIBILITY: {player.invisibility_timer}", True, (255, 255, 255))
+        screen.blit(ui_score, (20, 20))
+        screen.blit(ui_health, (20, 48))
+        screen.blit(ui_invisibility, (20, 72))
         pygame.display.flip()
 
 
