@@ -45,7 +45,6 @@ def main():
                     bullet.kill()
                     #scoring
                     player.score += 1
-                    print(player.score)
 
             if obj.collision(player) == True:
                 print("Game over!")
