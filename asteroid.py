@@ -17,7 +17,7 @@ class Asteroid(CircleShape):
     def split(self):
         self.kill()
         if self.radius <= ASTEROID_MIN_RADIUS:
-            return
+            return "small"
         else:
             r_angle = random.uniform(20, 50)
             dir1 = self.velocity.rotate(r_angle)
@@ -30,3 +30,4 @@ class Asteroid(CircleShape):
             # assign direction to the new asteroid
             a1.velocity = dir1 * 1.2
             a2.velocity = dir2 * 1.2
+            return "medium and large"

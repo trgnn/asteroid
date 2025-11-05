@@ -45,6 +45,12 @@ class Player(CircleShape):
             #will be returning True or False
             return self.health <= 0
         return False
+    
+    def scoring(self, asteroid_type):
+        if asteroid_type == "small":
+            self.score += 2
+        if asteroid_type == "medium and large":
+            self.score += 1
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
